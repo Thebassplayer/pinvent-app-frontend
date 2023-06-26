@@ -1,5 +1,14 @@
+// React Router
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// Axios
+import axios from "axios";
+
+// React Toastify
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// Pages
 import Home from "./pages/home/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -9,9 +18,12 @@ import Sidebar from "./components/sidebar/sidebar";
 import Layout from "./components/layout/Layout";
 import Dashboard from "./pages/dashboard/Dashboard";
 
+axios.defaults.withCredentials = true;
+
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
