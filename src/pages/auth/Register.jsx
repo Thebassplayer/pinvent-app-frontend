@@ -5,9 +5,16 @@ import { TiUserAddOutline } from "react-icons/ti";
 
 // Components
 import Card from "../../components/card/Card";
+import Loader from "../../components/loader/Loader";
+
+// Redux
+import { useDispatch } from "react-redux";
+
+// Redux Actions
+import { SET_LOGIN, SET_NAME } from "../../../redux/features/auth/authSlice";
 
 // React Router
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Styles
 import styles from "./auth.module.scss";
@@ -29,6 +36,9 @@ const Register = () => {
   const [formData, setFormData] = useState(initialState);
   const [isLoading, setIsLoading] = useState(false);
   const { username, email, password, confirmPassword } = formData;
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -71,7 +81,9 @@ const Register = () => {
     setIsLoading(true);
     try {
       const data = await registerUser(userData);
-      console.log("Data: ", data);
+      dispatch(SET_LOGIN(true));
+      dispatch(SET_NAME(data.username));
+      navigate("/dashboard");
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -81,6 +93,7 @@ const Register = () => {
 
   return (
     <div className={`container ${styles.auth}`}>
+      {isLoading && <Loader />}
       <Card>
         <div className={styles.form}>
           <div className="--flex-center">
