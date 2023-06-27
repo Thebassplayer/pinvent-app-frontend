@@ -1,5 +1,14 @@
+import { useEffect } from "react";
+
+// Redux
+import { useDispatch } from "react-redux";
+
 // React Router
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { getLoginStatus } from "./services/authServices";
+
+import { SET_LOGIN } from "../redux/features/auth/authSlice";
 
 // Axios
 import axios from "axios";
@@ -9,7 +18,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // Pages
-import Home from "./pages/home/Home";
+import Home from "./pages/Home/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
@@ -21,6 +30,16 @@ import Dashboard from "./pages/dashboard/Dashboard";
 axios.defaults.withCredentials = true;
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const loginStatus = async () => {
+      const status = await getLoginStatus();
+      dispatch(SET_LOGIN(status));
+    };
+    loginStatus();
+  }, [dispatch]);
+
   return (
     <BrowserRouter>
       <ToastContainer />
@@ -39,7 +58,7 @@ function App() {
               </Layout>
             </Sidebar>
           }
-        />{" "}
+        />
       </Routes>
     </BrowserRouter>
   );

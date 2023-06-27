@@ -58,11 +58,11 @@ const Login = () => {
       email,
       password,
     };
+
     setIsLoading(true);
 
     try {
       const data = await loginUser(userData);
-      console.log("Data: ", data);
       dispatch(SET_LOGIN(true));
       dispatch(SET_NAME(data.username));
       navigate("/dashboard");
