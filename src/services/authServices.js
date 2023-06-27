@@ -8,6 +8,7 @@ export const validateEmail = email => {
   return email.match(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/);
 };
 
+// Register User
 export const registerUser = async userData => {
   try {
     const response = await axios.post(
@@ -31,6 +32,7 @@ export const registerUser = async userData => {
   }
 };
 
+// Login User
 export const loginUser = async userData => {
   try {
     const response = await axios.post(
@@ -44,6 +46,20 @@ export const loginUser = async userData => {
       toast.success("Login successfully! ");
     }
     return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+
+    toast.error(message);
+  }
+};
+
+// Logout user
+export const logoutUser = async () => {
+  try {
+    await axios.get(`${BACKEND_URL}/api/users/logout`);
   } catch (error) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
