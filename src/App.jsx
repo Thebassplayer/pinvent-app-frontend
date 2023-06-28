@@ -26,6 +26,7 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import Sidebar from "./components/sidebar/sidebar";
 import Layout from "./components/layout/Layout";
 import Dashboard from "./pages/dashboard/Dashboard";
+import AddProduct from "./pages/addProduct/AddProduct";
 
 axios.defaults.withCredentials = true;
 
@@ -44,11 +45,19 @@ function App() {
     <BrowserRouter>
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/resetpassword/:resetToken" element={<ResetPassword />} />
+        <Route path="/" element={<Home />} name="home" />
+        <Route path="/login" element={<Login />} name="login" />
+        <Route path="/register" element={<Register />} name="register" />
+        <Route
+          path="/forgotpassword"
+          element={<ForgotPassword />}
+          name="home"
+        />
+        <Route
+          path="/resetpassword/:resetToken"
+          element={<ResetPassword />}
+          name="resetPassword"
+        />
         <Route
           path="/dashboard"
           element={
@@ -58,6 +67,18 @@ function App() {
               </Layout>
             </Sidebar>
           }
+          name="dashboard"
+        />
+        <Route
+          path="/add-product"
+          element={
+            <Sidebar>
+              <Layout>
+                <AddProduct />
+              </Layout>
+            </Sidebar>
+          }
+          name="addProduct"
         />
       </Routes>
     </BrowserRouter>

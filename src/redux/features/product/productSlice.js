@@ -12,7 +12,6 @@ const initialState = {
 };
 
 // Create new product
-
 export const createProduct = createAsyncThunk(
   "products/create",
   async (formData, thunkAPI) => {
@@ -46,7 +45,6 @@ const productSlice = createSlice({
     builder.addCase(createProduct.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isSuccess = true;
-      console.log(action.payload);
       state.products.push(action.payload);
       toast.success("Product added successfully");
     });
@@ -60,5 +58,7 @@ const productSlice = createSlice({
 });
 
 export const { CALC_STORE_VALUE } = productSlice.actions;
+
+export const selectIsLoading = state => state.product.isLoading;
 
 export default productSlice.reducer;

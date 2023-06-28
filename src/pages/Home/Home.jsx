@@ -29,7 +29,7 @@ const Home = () => {
           <ShowOnLogOut>
             <li>
               <button className="--btn --btn-primary">
-                <Link to="/login">Login</Link>
+                <Link to="login">Login</Link>
               </button>
             </li>
           </ShowOnLogOut>
