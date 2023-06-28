@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 // Redux Actions
-import { SET_LOGIN, selectName } from "../../../redux/features/auth/authSlice";
+import { SET_LOGIN, selectName } from "../../redux/features/auth/authSlice";
 
 //Services
 import { logoutUser } from "../../services/authServices";

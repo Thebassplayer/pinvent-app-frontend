@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { getLoginStatus } from "./services/authServices";
 
-import { SET_LOGIN } from "../redux/features/auth/authSlice";
+import { SET_LOGIN } from "./redux/features/auth/authSlice";
 
 // Axios
 import axios from "axios";

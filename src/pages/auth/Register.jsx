@@ -11,7 +11,7 @@ import Loader from "../../components/loader/Loader";
 import { useDispatch } from "react-redux";
 
 // Redux Actions
-import { SET_LOGIN, SET_NAME } from "../../../redux/features/auth/authSlice";
+import { SET_LOGIN, SET_NAME } from "../../redux/features/auth/authSlice";
 
 // React Router
 import { Link, useNavigate } from "react-router-dom";

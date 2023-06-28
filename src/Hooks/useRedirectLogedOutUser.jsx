@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 // Redux
 import { useDispatch } from "react-redux";
 
-import { SET_LOGIN } from "../../redux/features/auth/authSlice.js";
+import { SET_LOGIN } from "../redux/features/auth/authSlice.js";
 
 // React Router
 import { useNavigate } from "react-router-dom";
