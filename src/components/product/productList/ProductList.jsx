@@ -1,4 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import {
+  FILTER_PRODUCTS,
+  selectFilteredPoducts,
+} from "../../../redux/features/product/filterSlice";
+
 // Components
 import { SpinnerImg } from "../../loader/Loader";
 import SearchProduct from "../searchProduct/SearchProduct";
@@ -11,19 +18,31 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
 
 const ProductList = ({ products, isLoading }) => {
+  console.log("products @ ProductList", products);
   const [searchInputValue, setSearchInputValue] = useState("");
+
+  const filteredProducts = useSelector(selectFilteredPoducts) || [];
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(FILTER_PRODUCTS({ products, searchInputValue }));
+  }, [products, searchInputValue, dispatch]);
+
+  console.log("filteredProducts: ", filteredProducts);
+
   return (
     <div className="product-list">
       <hr />
       <div className="table">
         <div className="--flex-between --flex-dir-column">
           <span>
-            <h3>Inventory Item</h3>
+            <h3>Inventory Items</h3>
           </span>
           <span>
             <SearchProduct
               value={searchInputValue}
-              onChange={e => searchInputValue(e.target.value)}
+              onChange={e => setSearchInputValue(e.target.value)}
             />
           </span>
         </div>
@@ -41,11 +60,11 @@ const ProductList = ({ products, isLoading }) => {
                   <th>Price</th>
                   <th>Quantity</th>
                   <th>Value</th>
-                  <th>Actions</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {products.map((product, index) => {
+                {filteredProducts.map((product, index) => {
                   const { _id, name, category, price, quantity } = product;
                   return (
                     <tr key={_id}>
