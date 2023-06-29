@@ -2,7 +2,7 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 // Components
-import Card from "../card/Card";
+import Card from "../../card/Card";
 // Styles
 import "./productForm.scss";
 

@@ -11,7 +11,7 @@ import {
 // React Router
 import { useNavigate } from "react-router-dom";
 // Styles
-import ProductForm from "../../components/productForm/productForm";
+import ProductForm from "../../components/product/productForm/ProductForm";
 
 const initialState = {
   name: "",
