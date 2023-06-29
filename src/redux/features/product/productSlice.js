@@ -84,6 +84,16 @@ const productSlice = createSlice({
       });
       state.outOfStock = countOfOutOfStockProducts;
     },
+    CALC_CATEGORIES(state, action) {
+      const products = action.payload;
+      const categoriesArray = [];
+      products.map(item => {
+        const { category } = item;
+        return categoriesArray.push(category.toLowerCase());
+      });
+      const uniqueCategories = [...new Set(categoriesArray)];
+      state.category = uniqueCategories;
+    },
   },
   extraReducers: builder => {
     builder
@@ -121,7 +131,8 @@ const productSlice = createSlice({
   },
 });
 
-export const { CALC_STORE_VALUE, CALT_OUT_OF_STOCK } = productSlice.actions;
+export const { CALC_STORE_VALUE, CALT_OUT_OF_STOCK, CALC_CATEGORIES } =
+  productSlice.actions;
 
 export const selectIsLoading = state => state.product.isLoading;
 export const selectTotalStoreValue = state => state.product.totalStoreValue;
