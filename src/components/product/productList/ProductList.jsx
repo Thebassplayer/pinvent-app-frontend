@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -18,18 +19,32 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
 
 const ProductList = ({ products, isLoading }) => {
-  console.log("products @ ProductList", products);
   const [searchInputValue, setSearchInputValue] = useState("");
-
-  const filteredProducts = useSelector(selectFilteredPoducts) || [];
-
+  const filteredProducts = useSelector(selectFilteredPoducts);
   const dispatch = useDispatch();
+
+  //   Begin Pagination
+  const [currentItems, setCurrentItems] = useState([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = 5;
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage;
+
+    setCurrentItems(filteredProducts.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredProducts.length / itemsPerPage));
+  }, [itemOffset, itemsPerPage, filteredProducts]);
+
+  const handlePageClick = event => {
+    const newOffset = (event.selected * itemsPerPage) % filteredProducts.length;
+    setItemOffset(newOffset);
+  };
+  //   End Pagination
 
   useEffect(() => {
     dispatch(FILTER_PRODUCTS({ products, searchInputValue }));
   }, [products, searchInputValue, dispatch]);
-
-  console.log("filteredProducts: ", filteredProducts);
 
   return (
     <div className="product-list">
@@ -64,7 +79,7 @@ const ProductList = ({ products, isLoading }) => {
                 </tr>
               </thead>
               <tbody>
-                {filteredProducts.map((product, index) => {
+                {currentItems.map((product, index) => {
                   const { _id, name, category, price, quantity } = product;
                   return (
                     <tr key={_id}>
@@ -92,6 +107,20 @@ const ProductList = ({ products, isLoading }) => {
             </table>
           )}
         </div>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          previousLabel="Prev"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          pageLinkClassName="page-num"
+          previousLinkClassName="page-num"
+          nextLinkClassName="page-num"
+          activeLinkClassName="activePage"
+        />
       </div>
     </div>
   );
