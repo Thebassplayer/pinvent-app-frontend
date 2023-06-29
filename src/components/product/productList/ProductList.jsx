@@ -1,6 +1,7 @@
-import React from "react";
+import { useState } from "react";
 // Components
 import { SpinnerImg } from "../../loader/Loader";
+import SearchProduct from "../searchProduct/SearchProduct";
 // Utilitys
 import nameShorter from "../../../utils/nameShorter.js";
 //Styles
@@ -10,6 +11,7 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
 
 const ProductList = ({ products, isLoading }) => {
+  const [searchInputValue, setSearchInputValue] = useState("");
   return (
     <div className="product-list">
       <hr />
@@ -17,9 +19,12 @@ const ProductList = ({ products, isLoading }) => {
         <div className="--flex-between --flex-dir-column">
           <span>
             <h3>Inventory Item</h3>
-            <span>
-              <h3>Search Products</h3>
-            </span>
+          </span>
+          <span>
+            <SearchProduct
+              value={searchInputValue}
+              onChange={e => searchInputValue(e.target.value)}
+            />
           </span>
         </div>
         {isLoading && <SpinnerImg />}

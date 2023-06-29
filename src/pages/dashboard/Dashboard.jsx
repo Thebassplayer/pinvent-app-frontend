@@ -27,7 +27,7 @@ const Dashboard = () => {
     if (isError) {
       console.log(message);
     }
-  }, [isLoading, isError, message]);
+  }, [isLoggedIn, isError, message]);
   return (
     <div>
       <h2>Dashboard</h2>
