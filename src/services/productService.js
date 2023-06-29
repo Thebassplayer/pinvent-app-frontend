@@ -22,9 +22,16 @@ const deleteProduct = async id => {
   return response.data;
 };
 
+// Get a product
+const getProduct = async id => {
+  const response = await axios.get(`${PRODUCTS_API_URL}/${id}`);
+  return response.data;
+};
+
 const productService = {
   createProduct,
   getProducts,
+  getProduct,
   deleteProduct,
 };
 

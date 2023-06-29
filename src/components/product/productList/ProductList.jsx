@@ -9,6 +9,8 @@ import {
   deleteProduct,
   getProducts,
 } from "../../../redux/features/product/productSlice";
+// React Router
+import { Link } from "react-router-dom";
 // Components
 import { SpinnerImg } from "../../loader/Loader";
 import SearchProduct from "../searchProduct/SearchProduct";
@@ -29,7 +31,7 @@ const ProductList = ({ products, isLoading }) => {
   const dispatch = useDispatch();
 
   // Delete Pop up
-  const delProduct = async id => {
+  const handleDeleteProduct = async id => {
     await dispatch(deleteProduct(id));
     dispatch(getProducts());
   };
@@ -41,7 +43,7 @@ const ProductList = ({ products, isLoading }) => {
       buttons: [
         {
           label: "Delete",
-          onClick: () => delProduct(id),
+          onClick: () => handleDeleteProduct(id),
         },
         {
           label: "Cancel",
@@ -119,7 +121,9 @@ const ProductList = ({ products, isLoading }) => {
                       <td>{`$${price * quantity}`}</td>
                       <td className="icons">
                         <span>
-                          <AiOutlineEye size={25} color={"purple"} />
+                          <Link to={`/product-detail/${_id}`}>
+                            <AiOutlineEye size={25} color={"purple"} />
+                          </Link>
                         </span>
                         <span>
                           <FaEdit size={20} color={"green"} />

@@ -45,7 +45,7 @@ export const loginUser = async userData => {
       }
     );
     if (response.statusText === "OK") {
-      toast.success("Login successfully! ");
+      toast.success("Login successfully!");
     }
     return response.data;
   } catch (error) {

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 // Custom Hooks
-import useRedirectLogedOutUser from "../../Hooks/useRedirectLogedOutUser";
+import useRedirectLoggedOutUser from "../../Hooks/useRedirectLoggedOutUser";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 //Redux Slices
@@ -11,11 +11,9 @@ import ProductList from "../../components/product/productList/ProductList";
 import ProductSummary from "../../components/product/productSummary/ProductSummary";
 
 const Dashboard = () => {
-  useRedirectLogedOutUser("login");
-
+  useRedirectLoggedOutUser("login");
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
-
   const { products, isLoading, isError, message } = useSelector(
     state => state.product
   );
