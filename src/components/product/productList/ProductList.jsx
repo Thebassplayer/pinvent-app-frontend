@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import {
   FILTER_PRODUCTS,
   selectFilteredPoducts,
 } from "../../../redux/features/product/filterSlice";
-
+import {
+  deleteProduct,
+  getProducts,
+} from "../../../redux/features/product/productSlice";
 // Components
 import { SpinnerImg } from "../../loader/Loader";
 import SearchProduct from "../searchProduct/SearchProduct";
+import ReactPaginate from "react-paginate";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 // Utilitys
 import nameShorter from "../../../utils/nameShorter.js";
 //Styles
@@ -22,6 +27,29 @@ const ProductList = ({ products, isLoading }) => {
   const [searchInputValue, setSearchInputValue] = useState("");
   const filteredProducts = useSelector(selectFilteredPoducts);
   const dispatch = useDispatch();
+
+  // Delete Pop up
+  const delProduct = async id => {
+    await dispatch(deleteProduct(id));
+    dispatch(getProducts());
+  };
+
+  const confirmDelete = id => {
+    confirmAlert({
+      title: "Delete Product",
+      message: "Are you sure you want to delete this product",
+      buttons: [
+        {
+          label: "Delete",
+          onClick: () => delProduct(id),
+        },
+        {
+          label: "Cancel",
+          // onClick: () => alert("Click No"),
+        },
+      ],
+    });
+  };
 
   //   Begin Pagination
   const [currentItems, setCurrentItems] = useState([]);
@@ -97,7 +125,11 @@ const ProductList = ({ products, isLoading }) => {
                           <FaEdit size={20} color={"green"} />
                         </span>
                         <span>
-                          <FaTrashAlt size={20} color={"red"} />
+                          <FaTrashAlt
+                            size={20}
+                            color={"red"}
+                            onClick={() => confirmDelete(_id)}
+                          />
                         </span>
                       </td>
                     </tr>
