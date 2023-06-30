@@ -97,7 +97,6 @@ export const resetPassword = async (userData, resetToken) => {
       `${BACKEND_URL}/api/users/resetpassword/${resetToken}`,
       userData
     );
-
     return response.data;
   } catch (error) {
     const message =
@@ -113,7 +112,21 @@ export const resetPassword = async (userData, resetToken) => {
 export const getLoginStatus = async (userData, resetToken) => {
   try {
     const response = await axios.get(`${BACKEND_URL}/api/users/loggedin`);
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
 
+    toast.error(message);
+  }
+};
+
+// Get User Data
+export const getUser = async (userData, resetToken) => {
+  try {
+    const response = await axios.get(`${BACKEND_URL}/api/users/getuser`);
     return response.data;
   } catch (error) {
     const message =
