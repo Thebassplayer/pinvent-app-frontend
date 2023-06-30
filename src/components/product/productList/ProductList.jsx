@@ -125,9 +125,11 @@ const ProductList = ({ products, isLoading }) => {
                             <AiOutlineEye size={25} color={"purple"} />
                           </Link>
                         </span>
-                        <span>
-                          <FaEdit size={20} color={"green"} />
-                        </span>
+                        <Link to={`/edit-product/${_id}`}>
+                          <span>
+                            <FaEdit size={20} color={"green"} />
+                          </span>
+                        </Link>
                         <span>
                           <FaTrashAlt
                             size={20}

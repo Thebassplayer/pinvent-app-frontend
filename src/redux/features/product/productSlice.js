@@ -71,12 +71,12 @@ export const deleteProduct = createAsyncThunk(
   }
 );
 
-// Update product
-export const updateProduct = createAsyncThunk(
-  "products/updateproduct",
-  async ({ id, formData }, thunkAPI) => {
+// Get a product
+export const getProduct = createAsyncThunk(
+  "products/getproduct",
+  async (id, thunkAPI) => {
     try {
-      return await productService.updateProduct(id, formData);
+      return await productService.getProduct(id);
     } catch (error) {
       const message =
         (error.response &&
@@ -90,12 +90,12 @@ export const updateProduct = createAsyncThunk(
   }
 );
 
-// Get a product
-export const getProduct = createAsyncThunk(
-  "products/getproduct",
-  async (id, thunkAPI) => {
+// Update product
+export const updateProduct = createAsyncThunk(
+  "products/updateproduct",
+  async ({ id, formData }, thunkAPI) => {
     try {
-      return await productService.getProduct(id);
+      return await productService.updateProduct(id, formData);
     } catch (error) {
       const message =
         (error.response &&
@@ -245,5 +245,6 @@ export const selectIsLoading = state => state.product.isLoading;
 export const selectTotalStoreValue = state => state.product.totalStoreValue;
 export const selectOutOfStock = state => state.product.outOfStock;
 export const selectCategory = state => state.product.category;
+export const selectProduct = state => state.product.product;
 
 export default productSlice.reducer;

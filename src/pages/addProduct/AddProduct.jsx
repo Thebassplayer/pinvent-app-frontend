@@ -12,6 +12,8 @@ import {
 import { useNavigate } from "react-router-dom";
 // Styles
 import ProductForm from "../../components/product/productForm/ProductForm";
+//React Toastify
+import { toast } from "react-toastify";
 
 const initialState = {
   name: "",
@@ -39,16 +41,30 @@ const AddProduct = () => {
   };
 
   const handleImageChange = e => {
-    const newImage = e.target.files[0];
-    setProductImage(newImage);
-    setImagePreview(URL.createObjectURL(newImage));
+    const file = e.target.files[0];
+
+    // Check if a file is selected
+    if (file) {
+      const allowedExtensions = ["jpg", "jpeg", "gif", "png"];
+      const extension = file.name.split(".").pop().toLowerCase();
+
+      // Check if the file extension is allowed
+      if (allowedExtensions.includes(extension)) {
+        setProductImage(file);
+        setImagePreview(URL.createObjectURL(file));
+      } else {
+        // Show a notification to the user
+        toast.error(
+          "Invalid image format. Please select a JPG, JPEG, GIF, or PNG file."
+        );
+      }
+    }
   };
 
   const generateSKU = category => {
     const SKUPrefix = category.slice(0, 3).toUpperCase();
     const SKUUniqueNumber = Date.now();
     const SKU = `${SKUPrefix}-${SKUUniqueNumber}`;
-
     return SKU;
   };
 

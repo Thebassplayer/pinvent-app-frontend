@@ -23,11 +23,12 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
-import Sidebar from "./components/sidebar/sidebar";
+import Sidebar from "./components/sidebar/Sidebar";
 import Layout from "./components/layout/Layout";
 import Dashboard from "./pages/dashboard/Dashboard";
 import AddProduct from "./pages/addProduct/AddProduct";
 import ProductDetail from "./components/product/productDetail/ProductDetail";
+import EditProduct from "./pages/editProduct/EditProduct";
 
 axios.defaults.withCredentials = true;
 
@@ -91,6 +92,17 @@ function App() {
             </Sidebar>
           }
           name="productDetail"
+        />
+        <Route
+          path="/edit-product/:id"
+          element={
+            <Sidebar>
+              <Layout>
+                <EditProduct />
+              </Layout>
+            </Sidebar>
+          }
+          name="editProduct"
         />
       </Routes>
     </BrowserRouter>
