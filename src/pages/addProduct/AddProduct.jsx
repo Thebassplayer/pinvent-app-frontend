@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 import ProductForm from "../../components/product/productForm/ProductForm";
 //React Toastify
 import { toast } from "react-toastify";
+// Custom Hook
+import useImageUploader from "../../Hooks/useImageUploader";
 
 const initialState = {
   name: "",
@@ -24,12 +26,9 @@ const initialState = {
 
 const AddProduct = () => {
   const [product, setProduct] = useState(initialState);
-  const [productImage, setProductImage] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
   const [description, setDescription] = useState("");
 
   const isLoading = useSelector(selectIsLoading);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,26 +39,7 @@ const AddProduct = () => {
     setProduct({ ...product, [name]: value });
   };
 
-  const handleImageChange = e => {
-    const file = e.target.files[0];
-
-    // Check if a file is selected
-    if (file) {
-      const allowedExtensions = ["jpg", "jpeg", "gif", "png"];
-      const extension = file.name.split(".").pop().toLowerCase();
-
-      // Check if the file extension is allowed
-      if (allowedExtensions.includes(extension)) {
-        setProductImage(file);
-        setImagePreview(URL.createObjectURL(file));
-      } else {
-        // Show a notification to the user
-        toast.error(
-          "Invalid image format. Please select a JPG, JPEG, GIF, or PNG file."
-        );
-      }
-    }
-  };
+  const { productImage, imagePreview, handleImageChange } = useImageUploader();
 
   const generateSKU = category => {
     const SKUPrefix = category.slice(0, 3).toUpperCase();
@@ -77,10 +57,11 @@ const AddProduct = () => {
     formData.append("quantity", Number(quantity));
     formData.append("price", price);
     formData.append("description", description);
-    formData.append("image", productImage);
+    if (productImage) {
+      formData.append("image", productImage);
+    }
 
     dispatch(createProduct(formData));
-
     navigate("/dashboard");
   };
 

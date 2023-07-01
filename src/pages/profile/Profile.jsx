@@ -18,7 +18,6 @@ const Profile = () => {
     setIsLoading(true);
     const getProfile = async () => {
       const data = await getUser();
-      console.log(data);
       setProfile(data);
       setIsLoading(false);
       await dispatch(SET_USER(data));
