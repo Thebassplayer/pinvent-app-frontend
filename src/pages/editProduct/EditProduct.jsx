@@ -13,6 +13,8 @@ import {
 } from "../../redux/features/product/productSlice";
 // React Router
 import { useNavigate, useParams } from "react-router-dom";
+// Custom Hook
+import useImageUploader from "../../Hooks/useImageUploader";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -23,9 +25,15 @@ const EditProduct = () => {
   const productEdit = useSelector(selectProduct);
 
   const [product, setProduct] = useState(productEdit);
-  const [productImage, setProductImage] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
   const [description, setDescription] = useState("");
+
+  const { productImage, imagePreview, handleImageChange, setImagePreview } =
+    useImageUploader();
+
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setProduct({ ...product, [name]: value });
+  };
 
   useEffect(() => {
     dispatch(getProduct(id));
@@ -40,17 +48,6 @@ const EditProduct = () => {
       productEdit && productEdit.description ? productEdit.description : ""
     );
   }, [productEdit]);
-
-  const handleInputChange = e => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
-  };
-
-  const handleImageChange = e => {
-    const newImage = e.target.files[0];
-    setProductImage(newImage);
-    setImagePreview(URL.createObjectURL(newImage));
-  };
 
   const saveProductOnDB = async e => {
     e.preventDefault();

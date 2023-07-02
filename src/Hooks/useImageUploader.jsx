@@ -31,6 +31,7 @@ const useImageUploader = () => {
     productImage,
     imagePreview,
     handleImageChange,
+    setImagePreview,
   };
 };
 
