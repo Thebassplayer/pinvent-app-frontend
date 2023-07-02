@@ -14,9 +14,9 @@ import { Link } from "react-router-dom";
 
 const Profile = () => {
   useRedirectLoggedOutUser("/login");
-  const dispatch = useDispatch();
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setIsLoading(true);
@@ -59,7 +59,7 @@ const Profile = () => {
                 {profile?.bio}
               </p>
               <div>
-                <Link to="edit/profile">
+                <Link to="/edit-profile">
                   <button className="--btn --btn-primary">Edit Profile</button>
                 </Link>
               </div>

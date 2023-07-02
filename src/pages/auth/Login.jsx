@@ -63,6 +63,7 @@ const Login = () => {
 
     try {
       const data = await loginUser(userData);
+      console.log("data @ Login: ", data);
       dispatch(SET_LOGIN(true));
       dispatch(SET_NAME(data.username));
       navigate("/dashboard");
