@@ -7,8 +7,14 @@ import "./Profile.scss";
 //Redux
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../redux/features/auth/authSlice";
-// REact Router
+// React Router
 import { useNavigate } from "react-router-dom";
+// React Toastify
+import { toast } from "react-toastify";
+// Custom Hook
+import useImageUserUploader from "../../Hooks/useImageUserUploader";
+// Services
+import { updateUser } from "../../services/authServices";
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -37,36 +43,41 @@ const EditProfile = () => {
     setProfile({ ...profile, [name]: value });
   };
 
-  const handleImageChange = e => {
-    setProfileImage(e.target.files[0]);
-  };
+  // const handleImageChange = e => {
+  //   setProfileImage(e.target.files[0]);
+  // };
+
+  const { userImage, imagePreview, handleImageChange, setImagePreview } =
+    useImageUserUploader();
+
+  console.log("userImage @ EditProfile: ", userImage);
 
   const saveProfile = async e => {
     e.preventDefault();
     setIsLoading(true);
     try {
       // Handle image upload
-      let imageURL;
-      if (
-        (profileImage && profileImage.type === "image/jpeg") ||
-        profileImage.type === "image/jpg" ||
-        profileImage.type === "image/png"
-      ) {
-        const image = new Formimage();
-        image.append("file", profileImage);
-        image.append("upload_preset", "ecommerce");
-        image.append("cloud_name", "dellv/image/upload");
-        const res = await fetch(
-          "https://api.cloudinary.com/v1_1/dellv/image/upload",
-          {
-            method: "POST",
-            body: data,
-          }
-        );
-        const file = await res.json();
-        imageURL = file.url;
+      // save Profile
+
+      const formData = {
+        username: profile?.name,
+        email: profile?.email,
+        phone: profile?.phone,
+        bio: profile?.bio,
+      };
+      if (userImage) {
+        formData.photo = userImage;
       }
-    } catch (error) {}
+      console.log("formData @ EditProfile: ", formData);
+
+      const data = await updateUser(formData);
+      console.log(data);
+      setIsLoading(false);
+      toast.success("Profile updated successfully.");
+      navigate("/profile");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const dispatch = useDispatch();

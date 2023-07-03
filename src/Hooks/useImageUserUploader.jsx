@@ -2,10 +2,10 @@ import { useState } from "react";
 
 import { toast } from "react-toastify";
 
-const useImageProductUploader = () => {
-  const [productImage, setProductImage] = useState("");
+const useImageUserUploader = () => {
+  const [userImage, setProductImage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
-  console.log("productImage @ useImageProductUploader: ", productImage);
+  console.log("userImage @ useImageUserUploader: ", userImage);
 
   const handleImageChange = e => {
     const file = e.target.files[0];
@@ -29,11 +29,11 @@ const useImageProductUploader = () => {
   };
 
   return {
-    productImage,
+    userImage,
     imagePreview,
     handleImageChange,
     setImagePreview,
   };
 };
 
-export default useImageProductUploader;
+export default useImageUserUploader;

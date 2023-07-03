@@ -15,6 +15,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 // Custom Hook
 import useImageProductUploader from "../../Hooks/useImageProductUploader";
+import useProductEditor from "../../Hooks/useProductEditor";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -24,16 +25,31 @@ const EditProduct = () => {
 
   const productEdit = useSelector(selectProduct);
 
-  const [product, setProduct] = useState(productEdit);
-  const [description, setDescription] = useState("");
-
+  // const [product, setProduct] = useState(productEdit);
+  // const [description, setDescription] = useState("");
   const { productImage, imagePreview, handleImageChange, setImagePreview } =
     useImageProductUploader();
+  console.log("ProductImage @ EditProduct.jsx: ", productImage);
 
-  const handleInputChange = e => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
-  };
+  const {
+    product,
+    setProduct,
+    description,
+    setDescription,
+    handleInputChange,
+    handleSubmit,
+  } = useProductEditor(
+    productEdit,
+    productEdit?.description || "",
+    async formData => {
+      await Promise.all([
+        dispatch(updateProduct({ id, formData })),
+        dispatch(getProducts()),
+      ]);
+      navigate("/dashboard");
+    },
+    productImage
+  );
 
   useEffect(() => {
     dispatch(getProduct(id));
@@ -48,23 +64,31 @@ const EditProduct = () => {
       productEdit && productEdit.description ? productEdit.description : ""
     );
   }, [productEdit]);
+  // const handleInputChange = e => {
+  //   const { name, value } = e.target;
+  //   setProduct({ ...product, [name]: value });
+  // };
 
-  const saveProductOnDB = async e => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", product?.name);
-    formData.append("category", product?.category);
-    formData.append("quantity", product?.quantity);
-    formData.append("price", product?.price);
-    formData.append("description", description);
-    if (productImage) {
-      formData.append("image", productImage);
-    }
+  console.log("product @ EditProduct.jsx: ", product);
 
-    await dispatch(updateProduct({ id, formData }));
-    await dispatch(getProducts());
-    navigate("/dashboard");
-  };
+  // const saveProductOnDB = async e => {
+  //   e.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append("name", product?.name);
+  //   formData.append("category", product?.category);
+  //   formData.append("quantity", product?.quantity);
+  //   formData.append("price", product?.price);
+  //   formData.append("description", description);
+  //   if (productImage) {
+  //     formData.append("image", productImage);
+  //   }
+  //   console.log("formData @ EditProduct.jsx: ", formData);
+  //   await Promise.all([
+  //     dispatch(updateProduct({ id, formData })),
+  //     dispatch(getProducts()),
+  //   ]);
+  //   navigate("/dashboard");
+  // };
 
   return (
     <div>
@@ -78,7 +102,7 @@ const EditProduct = () => {
         setDescription={setDescription}
         handleInputChange={handleInputChange}
         handleImageChange={handleImageChange}
-        saveProductOnDB={saveProductOnDB}
+        saveProductOnDB={handleSubmit}
       />
     </div>
   );
