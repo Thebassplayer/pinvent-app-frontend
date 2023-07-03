@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // Components
 import { SpinnerImg } from "../../components/loader/Loader";
 import Card from "../../components/card/Card";
@@ -7,10 +7,21 @@ import "./Profile.scss";
 //Redux
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../redux/features/auth/authSlice";
+// REact Router
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector(selectUser);
+  const { email } = user;
+
+  useEffect(() => {
+    if (!email) {
+      navigate("/profile");
+    }
+  }, [email, navigate]);
+
   const intialState = {
     name: user?.name,
     email: user?.email,
@@ -32,6 +43,30 @@ const EditProfile = () => {
 
   const saveProfile = async e => {
     e.preventDefault();
+    setIsLoading(true);
+    try {
+      // Handle image upload
+      let imageURL;
+      if (
+        (profileImage && profileImage.type === "image/jpeg") ||
+        profileImage.type === "image/jpg" ||
+        profileImage.type === "image/png"
+      ) {
+        const image = new Formimage();
+        image.append("file", profileImage);
+        image.append("upload_preset", "ecommerce");
+        image.append("cloud_name", "dellv/image/upload");
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/dellv/image/upload",
+          {
+            method: "POST",
+            body: data,
+          }
+        );
+        const file = await res.json();
+        imageURL = file.url;
+      }
+    } catch (error) {}
   };
 
   const dispatch = useDispatch();
@@ -42,7 +77,7 @@ const EditProfile = () => {
         <span className="profile photo">
           <img src={user?.photo} alt="profilepic" />
         </span>
-        <form className="--form-control" onSubmit={saveProfile}>
+        <form className="--form-control --m" onSubmit={saveProfile}>
           <span className="profile-data">
             <p>
               <label htmlFor="name">Name</label>

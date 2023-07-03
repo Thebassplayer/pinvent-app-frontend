@@ -15,7 +15,7 @@ import ProductForm from "../../components/product/productForm/ProductForm";
 //React Toastify
 import { toast } from "react-toastify";
 // Custom Hook
-import useImageUploader from "../../Hooks/useImageUploader";
+import useImageProductUploader from "../../Hooks/useImageProductUploader";
 
 const initialState = {
   name: "",
@@ -39,7 +39,8 @@ const AddProduct = () => {
     setProduct({ ...product, [name]: value });
   };
 
-  const { productImage, imagePreview, handleImageChange } = useImageUploader();
+  const { productImage, imagePreview, handleImageChange } =
+    useImageProductUploader();
 
   const generateSKU = category => {
     const SKUPrefix = category.slice(0, 3).toUpperCase();

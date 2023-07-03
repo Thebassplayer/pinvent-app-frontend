@@ -6,7 +6,7 @@ import {
   getProducts,
 } from "../redux/features/product/productSlice.js";
 import { useNavigate } from "react-router-dom";
-import useImageUploader from "./useImageUploader";
+import useImageProductUploader from "./useImageProductUploader";
 
 const useProductSave = initialState => {
   const [product, setProduct] = useState(initialState);
@@ -15,7 +15,8 @@ const useProductSave = initialState => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { productImage, imagePreview, handleImageChange } = useImageUploader();
+  const { productImage, imagePreview, handleImageChange } =
+    useImageProductUploader();
 
   const saveProductOnDB = async e => {
     e.preventDefault();

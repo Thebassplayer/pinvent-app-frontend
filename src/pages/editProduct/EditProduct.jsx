@@ -14,7 +14,7 @@ import {
 // React Router
 import { useNavigate, useParams } from "react-router-dom";
 // Custom Hook
-import useImageUploader from "../../Hooks/useImageUploader";
+import useImageProductUploader from "../../Hooks/useImageProductUploader";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -28,7 +28,7 @@ const EditProduct = () => {
   const [description, setDescription] = useState("");
 
   const { productImage, imagePreview, handleImageChange, setImagePreview } =
-    useImageUploader();
+    useImageProductUploader();
 
   const handleInputChange = e => {
     const { name, value } = e.target;

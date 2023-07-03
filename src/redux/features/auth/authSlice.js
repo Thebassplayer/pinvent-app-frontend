@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-let name;
+let name = null;
 try {
   name = JSON.parse(localStorage.getItem("name"));
 } catch (error) {

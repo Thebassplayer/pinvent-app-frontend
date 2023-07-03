@@ -146,7 +146,7 @@ const productSlice = createSlice({
       const categoriesArray = [];
       products.map(item => {
         const { category } = item;
-        return categoriesArray.push(category.toLowerCase());
+        return categoriesArray.push(category.toString().toLowerCase());
       });
       const uniqueCategories = [...new Set(categoriesArray)];
       state.category = uniqueCategories;
