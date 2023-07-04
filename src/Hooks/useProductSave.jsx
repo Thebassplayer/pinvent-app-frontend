@@ -6,7 +6,7 @@ import {
   getProducts,
 } from "../redux/features/product/productSlice.js";
 import { useNavigate } from "react-router-dom";
-import useImageProductUploader from "./useImageProductUploader";
+import useImageProductUploader from "./useImageProductUploader.jsx";
 
 const useProductSave = initialState => {
   const [product, setProduct] = useState(initialState);

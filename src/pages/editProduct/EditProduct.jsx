@@ -14,8 +14,8 @@ import {
 // React Router
 import { useNavigate, useParams } from "react-router-dom";
 // Custom Hook
-import useImageProductUploader from "../../Hooks/useImageProductUploader";
-import useProductEditor from "../../Hooks/useProductEditor";
+import useImageProductUploader from "../../hooks/useImageProductUploader";
+import useProductEditor from "../../hooks/useProductEditor";
 
 const EditProduct = () => {
   const { id } = useParams();
