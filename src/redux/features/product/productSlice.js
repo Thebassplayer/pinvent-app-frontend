@@ -144,7 +144,6 @@ const productSlice = createSlice({
     CALC_CATEGORIES(state, action) {
       const products = action.payload;
       const categoriesArray = [];
-      console.log("product @ CALC_CATEGORIES", products);
       products.map(item => {
         const { category } = item;
         return categoriesArray.push(category.toString().toLowerCase());

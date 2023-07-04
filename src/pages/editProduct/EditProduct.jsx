@@ -25,8 +25,6 @@ const EditProduct = () => {
 
   const productEdit = useSelector(selectProduct);
 
-  // const [product, setProduct] = useState(productEdit);
-  // const [description, setDescription] = useState("");
   const { productImage, imagePreview, handleImageChange, setImagePreview } =
     useImageProductUploader();
 
