@@ -16,12 +16,13 @@ import useImageUserUploader from "../../Hooks/useImageUserUploader";
 import useProfileEditor from "../../Hooks/useProfileEditor";
 // Services
 import { updateUser } from "../../services/authServices";
+import ChangePassword from "../../components/changePassword/ChangePassword";
 
 const EditProfile = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector(selectUser);
-  console.table(user);
+
   const { email } = user;
 
   useEffect(() => {
@@ -128,6 +129,8 @@ const EditProfile = () => {
           </span>
         </form>
       </Card>
+      <br />
+      <ChangePassword />
     </div>
   );
 };

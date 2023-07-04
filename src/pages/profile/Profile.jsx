@@ -17,13 +17,12 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-  console.log("profile @ Profile.jsx: ", profile);
 
   useEffect(() => {
     setIsLoading(true);
     const getProfile = async () => {
       const data = await getUser();
-      console.log("Data: ", data);
+
       setProfile(data);
       setIsLoading(false);
       await dispatch(SET_USER(data));
