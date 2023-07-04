@@ -3,12 +3,13 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 const useImageUserUploader = () => {
-  const [userImage, setProductImage] = useState("");
+  const [userImage, setUserImage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   console.log("userImage @ useImageUserUploader: ", userImage);
 
   const handleImageChange = e => {
     const file = e.target.files[0];
+    console.log("file @ useImageUserUploader: ", file);
 
     // Check if a file is selected
     if (file) {
@@ -17,7 +18,8 @@ const useImageUserUploader = () => {
 
       // Check if the file extension is allowed
       if (allowedExtensions.includes(extension)) {
-        setProductImage(file);
+        setUserImage(file);
+        console.log("userImage @ useImageUserUploader: ", userImage);
         setImagePreview(URL.createObjectURL(file));
       } else {
         // Display an error or show a notification to the user
