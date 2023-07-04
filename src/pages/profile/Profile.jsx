@@ -17,6 +17,7 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  console.log("profile @ Profile.jsx: ", profile);
 
   useEffect(() => {
     setIsLoading(true);
@@ -39,7 +40,7 @@ const Profile = () => {
         ) : (
           <Card cardClass={"card --flex-dir-column"}>
             <span className="profile photo">
-              <img src={profile?.photo} alt="profilepic" />
+              <img src={profile?.photo?.url} alt="profilepic" />
             </span>
             <span className="profile-data">
               <p>

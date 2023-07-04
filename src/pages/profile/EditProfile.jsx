@@ -114,7 +114,7 @@ const EditProfile = () => {
           </div>
         ) : (
           <span className="profile photo">
-            <img src={user?.photo} alt="profilepic" />
+            <img src={user?.photo?.url} alt="profilepic" />
           </span>
         )}
         <form className="--form-control --m" onSubmit={handleSubmit}>

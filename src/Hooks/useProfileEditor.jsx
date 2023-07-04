@@ -19,7 +19,8 @@ const useProfileEditor = (initialProfile, userImage, onUpdate) => {
       formData.append("phone", profile?.phone);
       formData.append("bio", profile?.bio);
       if (userImage) {
-        formData.append("photo", userImage);
+        console.log("userImage @ EditProfile: ", userImage);
+        formData.append("image", userImage);
       }
       console.log("--- formData @ EditProfile: ", [...formData]);
 

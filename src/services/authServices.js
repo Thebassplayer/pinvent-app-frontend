@@ -141,7 +141,7 @@ export const getUser = async (userData, resetToken) => {
 // Update Profile
 export const updateUser = async formData => {
   try {
-    console.log("---formData---", formData);
+    console.log("---formData---", [...formData]);
     const response = await axios.patch(
       `${BACKEND_URL}/api/users/updateuser`,
       formData
