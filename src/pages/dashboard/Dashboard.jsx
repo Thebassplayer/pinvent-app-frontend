@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 // Custom Hooks
-import useRedirectLoggedOutUser from "../../hooks/useRedirectLoggedOutUser";
+import useRedirectLoggedOutUser from "../../customHooks/useRedirectLoggedOutUser";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 //Redux Slices
