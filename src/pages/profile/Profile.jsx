@@ -17,7 +17,6 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-  console.table(profile);
 
   useEffect(() => {
     setIsLoading(true);

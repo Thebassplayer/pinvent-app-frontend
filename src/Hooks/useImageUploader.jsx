@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { toast } from "react-toastify";
 
-const useImageProductUploader = () => {
+const useImageUploader = () => {
   const [productImage, setProductImage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -35,4 +35,4 @@ const useImageProductUploader = () => {
   };
 };
 
-export default useImageProductUploader;
+export default useImageUploader;
