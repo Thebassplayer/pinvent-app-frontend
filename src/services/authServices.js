@@ -137,3 +137,21 @@ export const getUser = async (userData, resetToken) => {
     toast.error(message);
   }
 };
+
+// Update Profile
+export const updateUser = async formData => {
+  try {
+    console.log("---formData---", formData);
+    const response = await axios.patch(
+      `${BACKEND_URL}/api/users/updateuser`,
+      formData
+    );
+    return response.data;
+  } catch (error) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString();
+    toast.error(message);
+  }
+};

@@ -7,13 +7,21 @@ import "./Profile.scss";
 //Redux
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../redux/features/auth/authSlice";
-// REact Router
+// React Router
 import { useNavigate } from "react-router-dom";
+// React Toastify
+import { toast } from "react-toastify";
+// Custom Hook
+import useImageUserUploader from "../../Hooks/useImageUserUploader";
+import useProfileEditor from "../../Hooks/useProfileEditor";
+// Services
+import { updateUser } from "../../services/authServices";
 
 const EditProfile = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector(selectUser);
+  console.table(user);
   const { email } = user;
 
   useEffect(() => {
@@ -22,62 +30,94 @@ const EditProfile = () => {
     }
   }, [email, navigate]);
 
-  const intialState = {
-    name: user?.name,
-    email: user?.email,
-    phone: user?.phone,
-    bio: user?.bio,
-    photo: user?.photo,
-  };
-  const [profile, setProfile] = useState(intialState);
-  const [profileImage, setProfileImage] = useState("");
+  // const intialState = {
+  //   name: user?.name,
+  //   email: user?.email,
+  //   phone: user?.phone,
+  //   bio: user?.bio,
+  //   photo: user?.photo,
+  // };
+  // const [profile, setProfile] = useState(intialState);
+  // const [profileImage, setProfileImage] = useState("");
 
-  const handleInputChange = e => {
-    const { name, value } = e.target;
-    setProfile({ ...profile, [name]: value });
-  };
+  // const handleInputChange = e => {
+  //   const { name, value } = e.target;
+  //   setProfile({ ...profile, [name]: value });
+  // };
 
-  const handleImageChange = e => {
-    setProfileImage(e.target.files[0]);
-  };
+  // const handleImageChange = e => {
+  //   setProfileImage(e.target.files[0]);
+  // };
 
-  const saveProfile = async e => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      // Handle image upload
-      let imageURL;
-      if (
-        (profileImage && profileImage.type === "image/jpeg") ||
-        profileImage.type === "image/jpg" ||
-        profileImage.type === "image/png"
-      ) {
-        const image = new Formimage();
-        image.append("file", profileImage);
-        image.append("upload_preset", "ecommerce");
-        image.append("cloud_name", "dellv/image/upload");
-        const res = await fetch(
-          "https://api.cloudinary.com/v1_1/dellv/image/upload",
-          {
-            method: "POST",
-            body: data,
-          }
-        );
-        const file = await res.json();
-        imageURL = file.url;
+  const { userImage, imagePreview, handleImageChange } = useImageUserUploader();
+
+  console.log("userImage @ EditProfile: ", userImage);
+  const { profile, handleSubmit, handleInputChange } = useProfileEditor(
+    {
+      name: user?.name,
+      email: user?.email,
+      phone: user?.phone,
+      bio: user?.bio,
+      photo: user?.photo,
+    },
+    userImage,
+    async formData => {
+      setIsLoading(true);
+      try {
+        console.log("---formData @ EditProfile: ", formData);
+        const data = await updateUser(formData);
+        setIsLoading(false);
+        return data;
+      } catch (error) {
+        setIsLoading(false);
+        throw error;
       }
-    } catch (error) {}
-  };
+    }
+  );
+
+  // const saveProfile = async e => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   try {
+  //     // Handle image upload
+  //     // save Profile
+
+  //     const formData = {
+  //       username: profile?.name,
+  //       email: profile?.email,
+  //       phone: profile?.phone,
+  //       bio: profile?.bio,
+  //     };
+  //     if (userImage) {
+  //       formData.photo = userImage;
+  //     }
+  //     console.log("formData @ EditProfile: ", formData);
+
+  //     const data = await updateUser(formData);
+  //     console.log(data);
+  //     setIsLoading(false);
+  //     toast.success("Profile updated successfully.");
+  //     navigate("/profile");
+  //   } catch (error) {
+  //     toast.error(error.message);
+  //   }
+  // };
 
   const dispatch = useDispatch();
   return (
     <div className="profile --my2">
       {isLoading && <SpinnerImg />}
       <Card cardClass={"card --flex-dir-column"}>
-        <span className="profile photo">
-          <img src={user?.photo} alt="profilepic" />
-        </span>
-        <form className="--form-control --m" onSubmit={saveProfile}>
+        {imagePreview != null ? (
+          <div className="profile photo">
+            <img src={imagePreview} alt="product" />
+          </div>
+        ) : (
+          <span className="profile photo">
+            <img src={user?.photo} alt="profilepic" />
+          </span>
+        )}
+        <form className="--form-control --m" onSubmit={handleSubmit}>
           <span className="profile-data">
             <p>
               <label htmlFor="name">Name</label>
@@ -127,7 +167,7 @@ const EditProfile = () => {
               <input
                 type="file"
                 name="image"
-                id="photo"
+                // id="photo"
                 onChange={handleImageChange}
               />
             </p>
