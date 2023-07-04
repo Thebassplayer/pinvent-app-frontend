@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 // React Toastify
 import { toast } from "react-toastify";
 // Custom Hook
-import useImageUserUploader from "../../customHooks/useImageUserUploader";
-import useProfileEditor from "../../customHooks/useProfileEditor";
+import useImageUserUploader from "../../Hooks/useImageUserUploader";
+import useProfileEditor from "../../Hooks/useProfileEditor";
 // Services
 import { updateUser } from "../../services/authServices";
 import ChangePassword from "../../components/changePassword/ChangePassword";

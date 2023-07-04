@@ -15,7 +15,7 @@ import ProductForm from "../../components/product/productForm/ProductForm";
 //React Toastify
 import { toast } from "react-toastify";
 // Custom Hook
-import useImageProductUploader from "../../customHooks/useImageProductUploader";
+import useImageProductUploader from "../../Hooks/useImageProductUploader";
 
 const initialState = {
   name: "",

@@ -4,7 +4,7 @@ import Card from "../../card/Card";
 // Styles
 import "./ProductDetail.scss";
 // Custom Hooks
-import useRedirectLoggedOutUser from "../../../customHooks/useRedirectLoggedOutUser";
+import useRedirectLoggedOutUser from "../../../Hooks/useRedirectLoggedOutUser";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../../redux/features/auth/authSlice";

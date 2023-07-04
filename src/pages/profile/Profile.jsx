@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "../../services/authServices";
 import { SET_NAME, SET_USER } from "../../redux/features/auth/authSlice";
 // Custom Hooks
-import useRedirectLoggedOutUser from "../../customHooks/useRedirectLoggedOutUser";
+import useRedirectLoggedOutUser from "../../Hooks/useRedirectLoggedOutUser";
 // Styles
 import "./Profile.scss";
 import { Link } from "react-router-dom";
