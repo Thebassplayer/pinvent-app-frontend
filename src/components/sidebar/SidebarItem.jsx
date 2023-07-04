@@ -17,16 +17,12 @@ const SidebarItem = ({ item, isOpen }) => {
         }
         style={{ cursor: "pointer" }}
       >
-        <div className="sidebar-title">
+        <div className="sidebar-title" onClick={expandMenuHandler}>
           <span>
             {item.icon && <div className="icon">{item.icon}</div>}
             {isOpen && <div>{item.title}</div>}
           </span>
-          <MdKeyboardArrowRight
-            size={25}
-            className="arrow-icon"
-            onClick={expandMenuHandler}
-          />
+          <MdKeyboardArrowRight size={25} className="arrow-icon" />
         </div>
         <div className="sidebar-content">
           {item.childrens.map((child, index) => {
