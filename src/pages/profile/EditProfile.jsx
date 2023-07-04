@@ -5,7 +5,7 @@ import Card from "../../components/card/Card";
 // Styles
 import "./Profile.scss";
 //Redux
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/features/auth/authSlice";
 // React Router
 import { useNavigate } from "react-router-dom";
@@ -30,28 +30,8 @@ const EditProfile = () => {
     }
   }, [email, navigate]);
 
-  // const intialState = {
-  //   name: user?.name,
-  //   email: user?.email,
-  //   phone: user?.phone,
-  //   bio: user?.bio,
-  //   photo: user?.photo,
-  // };
-  // const [profile, setProfile] = useState(intialState);
-  // const [profileImage, setProfileImage] = useState("");
-
-  // const handleInputChange = e => {
-  //   const { name, value } = e.target;
-  //   setProfile({ ...profile, [name]: value });
-  // };
-
-  // const handleImageChange = e => {
-  //   setProfileImage(e.target.files[0]);
-  // };
-
   const { userImage, imagePreview, handleImageChange } = useImageUserUploader();
 
-  console.log("userImage @ EditProfile: ", userImage);
   const { profile, handleSubmit, handleInputChange } = useProfileEditor(
     {
       name: user?.name,
@@ -75,35 +55,6 @@ const EditProfile = () => {
     }
   );
 
-  // const saveProfile = async e => {
-  //   e.preventDefault();
-  //   setIsLoading(true);
-  //   try {
-  //     // Handle image upload
-  //     // save Profile
-
-  //     const formData = {
-  //       username: profile?.name,
-  //       email: profile?.email,
-  //       phone: profile?.phone,
-  //       bio: profile?.bio,
-  //     };
-  //     if (userImage) {
-  //       formData.photo = userImage;
-  //     }
-  //     console.log("formData @ EditProfile: ", formData);
-
-  //     const data = await updateUser(formData);
-  //     console.log(data);
-  //     setIsLoading(false);
-  //     toast.success("Profile updated successfully.");
-  //     navigate("/profile");
-  //   } catch (error) {
-  //     toast.error(error.message);
-  //   }
-  // };
-
-  const dispatch = useDispatch();
   return (
     <div className="profile --my2">
       {isLoading && <SpinnerImg />}

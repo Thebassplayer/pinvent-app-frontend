@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const useProfileEditor = (initialProfile, userImage, onUpdate) => {
   const [profile, setProfile] = useState(initialProfile);
-  console.log("--- profile @ useProfileEditor: ", profile);
+
   const navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log("handleSubmit @ EditProfile fired");
+
     try {
       const formData = new FormData();
       formData.append("username", profile?.name);
@@ -19,13 +19,10 @@ const useProfileEditor = (initialProfile, userImage, onUpdate) => {
       formData.append("phone", profile?.phone);
       formData.append("bio", profile?.bio);
       if (userImage) {
-        console.log("userImage @ EditProfile: ", userImage);
         formData.append("image", userImage);
       }
-      console.log("--- formData @ EditProfile: ", [...formData]);
 
       const data = await onUpdate(formData);
-      console.log(data);
       toast.success("Profile updated successfully.");
       navigate("/profile");
     } catch (error) {
