@@ -18,7 +18,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // Pages
-import Home from "./pages/main/Home";
+import Home from "./pages/home/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
@@ -41,6 +41,7 @@ function App() {
   useEffect(() => {
     const loginStatus = async () => {
       const status = await getLoginStatus();
+      console.log(status);
       dispatch(SET_LOGIN(status));
     };
     loginStatus();
