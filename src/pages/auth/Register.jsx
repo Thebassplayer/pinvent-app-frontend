@@ -81,13 +81,14 @@ const Register = () => {
     setIsLoading(true);
     try {
       const data = await registerUser(userData);
+      console.log(data);
       dispatch(SET_LOGIN(true));
       dispatch(SET_NAME(data.username));
       navigate("/dashboard");
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      // console.log(error.message);
+      console.log(error.message);
     }
   };
 
