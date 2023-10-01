@@ -1,10 +1,9 @@
-// Rich text Editor
+import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-// Components
 import Card from "../../card/Card";
-// Styles
-import "./productForm.scss";
+
+import "./ProductForm.scss";
 
 const ProductForm = ({
   product,
@@ -14,12 +13,12 @@ const ProductForm = ({
   setDescription,
   handleInputChange,
   handleImageChange,
-  saveProductOnDB,
+  saveProduct,
 }) => {
   return (
     <div className="add-product">
       <Card cardClass={"card"}>
-        <form onSubmit={saveProductOnDB}>
+        <form onSubmit={saveProduct}>
           <Card cardClass={"group"}>
             <label>Product Image</label>
             <code className="--color-dark">
@@ -95,7 +94,6 @@ const ProductForm = ({
   );
 };
 
-// React Quill Params
 ProductForm.modules = {
   toolbar: [
     [{ header: "1" }, { header: "2" }, { font: [] }],
