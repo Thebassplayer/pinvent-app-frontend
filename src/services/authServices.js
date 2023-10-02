@@ -4,7 +4,7 @@ import axios from "axios";
 // React Toast
 import { toast } from "react-toastify";
 
-export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+export const BACKEND_URL = "https://pinvent-qxzw.onrender.com";
 
 export const validateEmail = email => {
   return email.match(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/);
