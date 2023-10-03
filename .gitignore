@@ -26,3 +26,4 @@ dist-ssr
 # Dev files
 
 todo.md
+.env
