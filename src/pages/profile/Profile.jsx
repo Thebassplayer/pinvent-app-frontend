@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 //Components
-import { SpinnerImg } from "../../components/loader/Loader";
+import Loader from "../../components/loader/Loader";
 import Card from "../../components/card/Card";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -32,7 +32,7 @@ const Profile = () => {
   }, [dispatch]);
   return (
     <div className="profile --my2">
-      {isLoading && <SpinnerImg />}
+      {isLoading && <Loader />}
       <>
         {!isLoading && profile === null ? (
           <p>Something whent wrong, reload page...</p>
