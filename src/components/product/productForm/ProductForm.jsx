@@ -13,12 +13,12 @@ const ProductForm = ({
   setDescription,
   handleInputChange,
   handleImageChange,
-  saveProduct,
+  saveProductOnDB,
 }) => {
   return (
     <div className="add-product">
       <Card cardClass={"card"}>
-        <form onSubmit={saveProduct}>
+        <form onSubmit={saveProductOnDB}>
           <Card cardClass={"group"}>
             <label>Product Image</label>
             <code className="--color-dark">

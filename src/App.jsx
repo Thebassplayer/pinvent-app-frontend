@@ -41,7 +41,6 @@ function App() {
   useEffect(() => {
     const loginStatus = async () => {
       const status = await getLoginStatus();
-      console.log(status);
       dispatch(SET_LOGIN(status));
     };
     loginStatus();
